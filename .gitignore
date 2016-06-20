@@ -78,6 +78,9 @@ celerybeat-schedule
 # dotenv
 .env
 
+# vim
+.swp
+
 # virtualenv
 venv/
 ENV/
