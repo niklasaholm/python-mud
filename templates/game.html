@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+    
+<head>
+<title>Game</title>
+
+<link rel="shortcut icon" href="favicon.ico">
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/main.css">
+<script type="text/javascript">
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+
+    socket.on('connect', function() {
+        console.log('client connected')
+        socket.emit('create user');
+    });
+
+
+    socket.on('new user', function(message) {
+        console.log(message);
+    });
+
+    socket.on('message', function(message) {
+        $('ul').append('<li>' + message + '</li>');
+    });
+
+
+    $(window).keydown(function(event) {
+        var input = $('#broadcast_data').val();    
+        if (event.keyCode == 13 & input != '') {
+            socket.emit('message', input);    
+            $('#broadcast_data').val('');
+        }
+
+    });
+
+</script>
+</head>
+<body>
+    
+
+        <ul class=pages>
+
+
+   </ul>
+       <div class="container"> 
+
+        <input type="text" id="broadcast_data">
+    </div>
+</body>
+</html>
